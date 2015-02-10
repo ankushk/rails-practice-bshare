@@ -1,0 +1,12 @@
+<h1> Upload your file </h1>
+<%= form_for :bfile, :url => {:action => "create"}  do |f| %>
+  <p>
+    <%= f.file_field :upload %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+<%= link_to 'All files', bfiles_path %>

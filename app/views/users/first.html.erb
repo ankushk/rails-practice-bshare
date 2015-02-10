@@ -1,0 +1,19 @@
+<h1> Your BShare files </h1>
+
+<ul>
+<% Dir.foreach("public/share/#{@user[:userid]}") do |item| %>
+  <% next if item == '.' or item == '..' %>
+  <li>
+  <%= link_to "#{item}", "/share/#{@user[:userid]}/#{item}" %>
+  </li>
+<% end %>
+</ul>
+
+<%= form_tag({action: :upload}, multipart: true) do %>
+  <p>
+  <%= file_field_tag 'ufile' %>
+  </p>
+  <p>
+    <%= submit_tag 'Upload' %>
+  </p>
+<% end %>

@@ -1,0 +1,10 @@
+<h1> BShare files </h1>
+
+<ul>
+<% Dir.foreach('public/share/') do |item| %>
+  <% next if item == '.' or item == '..' %>
+  <li>
+  <%= link_to "#{item}", "/share/#{item}" %>
+  </li>
+<% end %>
+</ul>
