@@ -4,11 +4,11 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
   after_save :create_directory
   
+  validates :userid, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }
+  validates :password, presence: true, length: {minimum: 6, maximum: 12}, on: :create
   validates_confirmation_of :password
-  validates_presence_of :password, :on => :create
-  validates_presence_of :userid
-  validates_uniqueness_of :userid
-  validates_format_of :userid, :with => /[\w\d]+/, :on => :create
+  validates_presence_of :password_confirmation, :on => :create
+
   
   def self.authenticate(userid, password)
     user = find_by_userid(userid)
