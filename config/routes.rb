@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get "sign_up" => "users#new", :as => "sign_up"
   get "first" => "users#first", :as => "first_page"
   post "upload" => "users#upload"
+  get "download" => "users#download"
+  get "deletefile" => "users#deletefile"
   root :to => "users#first"
   resources :users
   resources :sessions

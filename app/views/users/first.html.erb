@@ -1,14 +1,23 @@
 <h1> Your BShare files </h1>
 
-<ul>
-<% Dir.foreach("public/share/#{@user[:userid]}") do |item| %>
+<table cellspacing="4px">
+<% Dir.foreach("private/#{@user[:userid]}") do |item| %>
   <% next if item == '.' or item == '..' %>
-  <li>
-  <%= link_to "#{item}", "/share/#{@user[:userid]}/#{item}" %>
-  </li>
+  <tr>
+  <td>
+  <%= "#{item}" %>
+  </td>
+  <td>
+  <%= link_to "Download", action: :download, dfile: "#{item}" %> 
+  </td>
+  <td>
+  <%= link_to "Delete", action: :deletefile, dfile: "#{item}" %> 
+  </td>
+  </tr>
 <% end %>
-</ul>
+</table>
 
+<div>
 <%= form_tag({action: :upload}, multipart: true) do %>
   <p>
   <%= file_field_tag 'ufile' %>
@@ -17,3 +26,4 @@
     <%= submit_tag 'Upload' %>
   </p>
 <% end %>
+</div>

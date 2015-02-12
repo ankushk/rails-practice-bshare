@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
   after_save :create_directory
   
-  validates :userid, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }
+  validates :userid, presence: true, uniqueness: true, format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/i, on: :create }
   validates :password, presence: true, length: {minimum: 6, maximum: 12}, on: :create
   validates_confirmation_of :password
   validates_presence_of :password_confirmation, :on => :create
@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   end
 
   def create_directory
-    dir = File.dirname("#{Rails.root}/public/share/#{userid}/hello")
+    dir = File.dirname("#{Rails.root}/private/#{userid}/hello")
     FileUtils.mkdir_p(dir) unless File.directory?(dir)
   end
 
